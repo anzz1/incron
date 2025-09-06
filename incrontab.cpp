@@ -165,20 +165,17 @@ bool IncronTabEntry::Parse(const std::string& rStr, IncronTabEntry& rEntry)
 std::string IncronTabEntry::GetSafePath(const std::string& rPath)
 {
   std::ostringstream stream;
-  
+
   SIZE len = rPath.length();
   for (SIZE i = 0; i < len; i++) {
-    if (rPath[i] == ' ') {
-      stream << "\\ ";
-    }
-    else if (rPath[i] == '\\') {
-      stream << "\\\\";
+    if (rPath[i] == '\'') {
+      stream << "'\\''"; // close single quote, place escaped one, open another single quote
     }
     else {
       stream << rPath[i];
     }
   }
-  
+
   return stream.str();
 }
 
